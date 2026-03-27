@@ -26,11 +26,11 @@ struct
   fun capacity {buffer, size} = Array.length (!buffer)
   fun isEmpty set = size set = 0
 
-  fun loadFactor {buffer, size} = 
-    Real.fromInt (!size) / Real.fromInt (Array.length (!buffer))
+  fun loadFactor set = 
+    Real.fromInt (size set) / Real.fromInt (capacity set)
 
-  fun grow {buffer, size} =
-    Real.round (Real.fromInt (Array.length (!buffer)) * growFactor)
+  fun grow set =
+    Real.round (Real.fromInt (capacity set) * growFactor)
 
   fun resize (set as {buffer, size}) capacity =
     if capacity <= !size then raise Size
@@ -56,7 +56,7 @@ struct
           | NONE => true
         open ArraySlice
       in
-        case findi search (slice (!buffer, pos, NONE)) of        
+        case findi search (slice (!, pos, NONE)) of        
           SOME (i, s) =>
           (case Slot.getItem s of
             NONE => ~i - pos - 1
