@@ -1,0 +1,11 @@
+local
+	$(SML_LIB)/basis/basis.mlb
+in
+	Type/Eq.sig
+	Type/Bogus.sig
+	Type/Bogus.fun
+	Type/Hashable.sig
+	Type/Slot.sig
+	Imperative/Set.sig
+	Imperative/HashSet.fun
+end

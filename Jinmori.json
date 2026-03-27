@@ -1,0 +1,14 @@
+{
+    "package" : {
+        "name" : "collections",
+        "version" : "0.1.0"
+      },
+    "description" : "",
+    "license" : "UNLICENSED",
+    "repository" : "",
+    "supportedCompilers" : [
+        "mlton"
+      ],
+    "dependencies" : [
+      ]
+  }
