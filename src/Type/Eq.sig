@@ -1,5 +1,4 @@
 signature EQ =
 sig
-  type t
-  val eq : t * t -> bool
+  include PARTIAL_EQ
 end
