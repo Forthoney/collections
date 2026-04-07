@@ -11,6 +11,12 @@ in
 	Type/PartialOrd.fun
 	Type/Hashable.sig
 	Type/Slot.sig
+
 	Imperative/Set.sig
 	Imperative/HashSet.fun
+
+	Container.sig
+	Set.sig
+	PriorityQueue.sig
+	Map.sig
 end

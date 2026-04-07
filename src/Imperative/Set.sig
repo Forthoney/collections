@@ -8,7 +8,7 @@ sig
   val size : t -> int
   val isEmpty : t -> bool
   val member : t -> item -> bool
-  val add : t -> item -> unit
+  val insert : t -> item -> unit
   val delete : t -> item -> unit
 
   (* val union : t -> t -> t *)

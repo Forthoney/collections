@@ -38,7 +38,7 @@ struct
       let val old = !buffer
       in
         buffer := Array.array (capacity, Slot.empty);
-        Array.app (Option.app (add set) o Slot.getItem) old
+        Array.app (Option.app (insert set) o Slot.getItem) old
       end
 
   and probe (set as {buffer, size}) v =
@@ -70,7 +70,7 @@ struct
           | NONE => raise Full
       end
 
-  and add (set as {buffer, size}) v =
+  and insert (set as {buffer, size}) v =
     let val i = probe set v
     in
       if i >= 0 then ()
