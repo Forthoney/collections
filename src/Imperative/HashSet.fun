@@ -56,7 +56,7 @@ struct
           | NONE => true
         open ArraySlice
       in
-        case findi search (slice (!, pos, NONE)) of        
+        case findi search (slice (!buffer, pos, NONE)) of        
           SOME (i, s) =>
           (case Slot.getItem s of
             NONE => ~i - pos - 1

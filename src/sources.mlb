@@ -1,9 +1,14 @@
 local
 	$(SML_LIB)/basis/basis.mlb
 in
-	Type/Eq.sig
 	Type/Bogus.sig
 	Type/Bogus.fun
+	Type/PartialEq.sig
+	Type/PartialEq.fun
+	Type/Eq.sig
+	Type/Eq.fun
+	Type/PartialOrd.sig
+	Type/PartialOrd.fun
 	Type/Hashable.sig
 	Type/Slot.sig
 	Imperative/Set.sig
