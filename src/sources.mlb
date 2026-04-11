@@ -9,6 +9,8 @@ in
 	Type/Eq.fun
 	Type/PartialOrd.sig
 	Type/PartialOrd.fun
+	Type/Ord.sig
+	Type/Ord.fun
 	Type/Hashable.sig
 	Type/Slot.sig
 
@@ -21,4 +23,5 @@ in
 	Set.sig
 	PriorityQueue.sig
 	Map.sig
+	WavlTree.fun
 end
