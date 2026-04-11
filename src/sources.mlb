@@ -13,6 +13,8 @@ in
 	Type/Slot.sig
 
 	Imperative/Set.sig
+	Imperative/UndirectedGraph.sig
+	Imperative/UndirectedGraph.fun
 	Imperative/HashSet.fun
 
 	Container.sig
