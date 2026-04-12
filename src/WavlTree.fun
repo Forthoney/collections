@@ -146,13 +146,54 @@ struct
 
   fun parityOfRank r = if r mod 2 = 0 then Even else Odd
 
-  val rank =
+  fun rank t =
     let
       fun loop acc Nil = acc
         | loop acc (Node (p, (l, _, _))) =
           loop (acc + (if p = getParity l then 2 else 1)) l
     in
-      loop 0
+      loop 0 t
+    end
+
+  fun joinRight (body as (l, kv, r)) rankL rankR =
+    if rankL - rankR <= 1 then
+      {promoted = (rankL = rankR), node = (parityOfRank (rankR + 1), body)}
+    else
+      case l of
+        Nil => raise Fail "unreachable"
+      | Node (p, (leftL, kvL, rightL)) =>
+        let
+          val rankRL = rankL - (if p = getParity rightL then 2 else 1)
+        in
+          case joinRight (rightL, kv, r) rankRL rankR of
+            {promoted = true, node} => balanceIns R p node kvL leftL
+          | {promoted = false, node} => {promoted = false, node = (p, (leftL, kvL, Node node))}
+        end
+
+  fun joinLeft (body as (l, kv, r)) rankL rankR =
+    if rankR <= rankL + 1 then
+      {promoted = (rankL = rankR), node = (parityOfRank (rankL + 1), body)}
+    else
+      case r of
+        Nil => raise Fail "unreachable"
+      | Node (p, (leftR, kvR, rightR)) =>
+        let
+          val rankLR = rankR - (if p = getParity leftR then 2 else 1)
+        in
+          case joinLeft (l, kv, leftR) rankL rankLR of
+            {promoted = true, node} => balanceIns L p node kvR rightR
+          | {promoted = false, node} => {promoted = false, node = (p, (Node node, kvR, rightR))}
+        end
+
+  fun join t1 k t2 =
+    let
+      val r1 = rank t1
+      val r2 = rank t2
+    in
+      if rank t1 >= rank t2 then
+        Node (#node (joinRight (t1, k, t2) r1 r2))
+      else
+        Node (#node (joinLeft (t1, k, t2) r1 r2))
     end
 
   fun lookup Nil _ = NONE
@@ -171,5 +212,5 @@ struct
   fun toList Nil = []
     | toList (Node (_, (l, kv, r))) = toList l @ (kv :: toList r)
 
-  val fromList = List.foldl (fn (kv, t) => insert t kv) Nil
+  fun fromList xs = List.foldl (fn (kv, t) => insert t kv) Nil xs
 end

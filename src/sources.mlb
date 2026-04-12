@@ -19,6 +19,10 @@ in
 	Imperative/UndirectedGraph.fun
 	Imperative/HashSet.fun
 
+	BinarySearchTree.sig
+	BinarySearchTreeBulk.sig
+	BinarySearchTreeBulk.fun
+
 	Container.sig
 	Set.sig
 	PriorityQueue.sig
