@@ -11,4 +11,6 @@ sig
 
   val size : 'a t -> int
   val isEmpty : 'a t -> bool
+
+  val toList : 'a t -> (key * 'a) list
 end
