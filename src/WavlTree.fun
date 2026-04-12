@@ -13,6 +13,17 @@ struct
   val demote = flip
   val promote = flip
 
+  fun parityOfRank r = if r mod 2 = 0 then Even else Odd
+
+  fun rank t =
+    let
+      fun loop acc Nil = acc
+        | loop acc (Node (p, (l, _, _))) =
+          loop (acc + (if p = getParity l then 2 else 1)) l
+    in
+      loop 0 t
+    end
+
   datatype dir = L | R
 
   fun opposite L = R
@@ -22,6 +33,8 @@ struct
     | sides R (l, v, r) = (r, v, l)
 
   val empty = Nil
+
+  fun singleton kv = Node (Odd, (Nil, kv, Nil))
 
   fun balanceIns d parityParent (changed as (parityChanged, bodyChanged)) kv far =
     let
@@ -142,17 +155,9 @@ struct
           else {demoted = false, node = Node (parity, (l, kv', r)), deleted = deleted}
         end
 
-  fun remove t = #deleted o rem t
-
-  fun parityOfRank r = if r mod 2 = 0 then Even else Odd
-
-  fun rank t =
-    let
-      fun loop acc Nil = acc
-        | loop acc (Node (p, (l, _, _))) =
-          loop (acc + (if p = getParity l then 2 else 1)) l
-    in
-      loop 0 t
+  fun remove t k =
+    let val {deleted, node, ...} = rem t k
+    in (deleted, node)
     end
 
   fun joinRight (body as (l, kv, r)) rankL rankR =
@@ -196,12 +201,14 @@ struct
         Node (#node (joinLeft (t1, k, t2) r1 r2))
     end
 
-  fun lookup Nil _ = NONE
-    | lookup (Node (_, (l, (k', v), r))) k = 
+  fun get Nil _ = NONE
+    | get (Node (_, (l, (k', v), r))) k = 
       case O.compare (k, k') of
         EQUAL => SOME v
-      | LESS => lookup l k
-      | GREATER => lookup r k
+      | LESS => get l k
+      | GREATER => get r k
+
+  fun member t = Option.isSome o get t
   
   fun size Nil = 0
     | size (Node (_, (l, _, r))) = 1 + size l + size r

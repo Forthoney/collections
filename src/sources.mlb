@@ -19,13 +19,14 @@ in
 	Imperative/UndirectedGraph.fun
 	Imperative/HashSet.fun
 
+	Map.sig
+	MapBulk.sig
+	Set.sig
+	Set.fun
+
 	BinarySearchTree.sig
 	BinarySearchTreeBulk.sig
 	BinarySearchTreeBulk.fun
 
-	Container.sig
-	Set.sig
-	PriorityQueue.sig
-	Map.sig
 	WavlTree.fun
 end

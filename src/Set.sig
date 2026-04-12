@@ -1,20 +1,18 @@
 signature SET =
 sig
-  include CONTAINER
+  type item
+  type t
 
-  val new : int -> t
+  val empty : t
+  val singleton : item -> t
+  val insert : t -> item -> t
   val member : t -> item -> bool
-  val delete : t -> item -> t
+  val remove : t -> item -> (bool * t)
+
+  val size : t -> int
+  val isEmpty : t -> bool
 
   val union : t -> t -> t
-  val inter : t -> t -> t
+  val intersect : t -> t -> t
   val diff : t -> t -> t
-  val partition : (item -> bool) -> t -> (t * t)
-
-  val map : (item -> item) -> t -> t
-  val mapPartial : (item -> item option) -> t -> t
-  val app : (item -> unit) -> t -> unit
-  val reduce : (item * 'b -> 'b) -> 'b -> t -> 'b
-  val find : (item -> bool) -> t -> item option
-  val filter : (item -> bool) -> t -> t
 end
